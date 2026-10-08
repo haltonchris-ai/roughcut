@@ -14,7 +14,7 @@
     "typecheck": "npm run typecheck -w packages/shared && npm run typecheck -w apps/web && npm run typecheck -w apps/mobile",
     "seed": "node --env-file=.env --experimental-strip-types supabase/seed/seed.ts",
     "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe/webhook",
-    "postinstall": "patch-package"
+    "postinstall": "node scripts/postinstall.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4"
