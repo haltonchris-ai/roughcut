@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "536eaa8f-392c-4274-9952-9a6d33986311"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.nrealm.roughcut",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    }
+  }
+}

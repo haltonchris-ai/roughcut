@@ -26,6 +26,7 @@ const config: ExpoConfig = {
     infoPlist: {
       NSCameraUsageDescription: "RoughCUT uses the camera to scan box stickers.",
       UIStatusBarStyle: "UIStatusBarStyleLightContent",
+      ITSAppUsesNonExemptEncryption: false,
     },
     // Claims /b/* so a tap on a sticker's link opens the app directly
     // instead of the web read-only fallback, per the MOBILE spec section.
@@ -48,6 +49,9 @@ const config: ExpoConfig = {
   plugins: ["expo-router", "expo-secure-store", "expo-sqlite"],
   extra: {
     router: { origin: false },
+    eas: {
+      projectId: "536eaa8f-392c-4274-9952-9a6d33986311",
+    },
   },
 };
 
