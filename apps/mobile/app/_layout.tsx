@@ -1,3 +1,4 @@
+﻿import "@/lib/errorGuard"; // must stay first: installs the error handler before anything else loads
 import { useEffect } from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -32,3 +33,4 @@ export default function RootLayout() {
     </AuthProvider>
   );
 }
+
