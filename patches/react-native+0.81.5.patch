@@ -1,8 +1,8 @@
 diff --git a/node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios/ReactCommon/RCTTurboModule.mm b/node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios/ReactCommon/RCTTurboModule.mm
-index 2a67797..8ce2a20 100644
+index 2a67797..83059de 100644
 --- a/node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios/ReactCommon/RCTTurboModule.mm
 +++ b/node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios/ReactCommon/RCTTurboModule.mm
-@@ -435,7 +435,13 @@ void ObjCTurboModule::performVoidMethodInvocation(
+@@ -435,7 +435,30 @@ void ObjCTurboModule::performVoidMethodInvocation(
      @try {
        [inv invokeWithTarget:strongModule];
      } @catch (NSException *exception) {
@@ -14,6 +14,23 @@ index 2a67797..8ce2a20 100644
 +      // an NSException on a background queue. Rethrowing there aborts the process, so
 +      // log it and carry on instead.
 +      NSLog(@"[RoughCUT patch] swallowed NSException from %s.%s: %@", moduleName, methodNameStr.c_str(), exception);
++      // Temporary diagnostic: show which module threw, on screen.
++      NSString *rcMsg = [NSString stringWithFormat:@"%s.%s\n%@\n%@", moduleName, methodNameStr.c_str(), exception.name, exception.reason];
++      dispatch_async(dispatch_get_main_queue(), ^{
++        static int rcShown = 0;
++        if (rcShown++ >= 3) {
++          return;
++        }
++        UIViewController *rcVC = RCTPresentedViewController();
++        if (rcVC == nil) {
++          return;
++        }
++        UIAlertController *rcAlert = [UIAlertController alertControllerWithTitle:@"RoughCUT native error"
++                                                                         message:rcMsg
++                                                                  preferredStyle:UIAlertControllerStyleAlert];
++        [rcAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
++        [rcVC presentViewController:rcAlert animated:YES completion:nil];
++      });
      } @finally {
        [retainedObjectsForInvocation removeAllObjects];
      }
