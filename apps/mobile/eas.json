@@ -1,4 +1,4 @@
-{
+﻿{
   "cli": {
     "version": ">= 13.0.0",
     "appVersionSource": "remote"
@@ -9,18 +9,30 @@
       "distribution": "internal",
       "ios": {
         "resourceClass": "m-medium"
+      },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://jhlsimdapdjohgibetvd.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_WNgmFRwZ0fuy1ibVFaH1tw_ZZNuFGBt"
       }
     },
     "preview": {
       "distribution": "internal",
       "ios": {
         "resourceClass": "m-medium"
+      },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://jhlsimdapdjohgibetvd.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_WNgmFRwZ0fuy1ibVFaH1tw_ZZNuFGBt"
       }
     },
     "production": {
       "autoIncrement": true,
       "ios": {
         "resourceClass": "m-medium"
+      },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://jhlsimdapdjohgibetvd.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_WNgmFRwZ0fuy1ibVFaH1tw_ZZNuFGBt"
       }
     }
   },
