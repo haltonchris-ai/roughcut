@@ -72,6 +72,10 @@ export async function createStickerOrder(formData: FormData): Promise<void> {
     await processStickerOrder(order.id);
   } catch (err) {
     console.error("print processing failed", err);
+    revalidatePath("/app/stickers");
+    revalidatePath(`/app/jobs/${jobId}`);
+    const msg = err instanceof Error ? err.message : String(err);
+    redirect("/app/stickers?error=" + encodeURIComponent("Print step failed: " + msg.slice(0, 180)));
   }
 
   revalidatePath("/app/stickers");

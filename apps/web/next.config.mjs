@@ -6,7 +6,7 @@ const nextConfig = {
   // label art to PDF/image). Webpack can't parse that binary as a JS
   // module, so it has to be excluded from bundling and required at
   // runtime instead, like any other native Node addon.
-  serverExternalPackages: ["@resvg/resvg-js"],
+  serverExternalPackages: ["@resvg/resvg-js", "pdfkit"],
   // Vercel's file tracing doesn't follow the runtime path.join() calls in
   // label-art.ts, so the bundled label fonts have to be listed explicitly or
   // they're dropped from the serverless function bundle.

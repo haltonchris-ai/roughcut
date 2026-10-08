@@ -1,7 +1,6 @@
 import "server-only";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { env } from "@/lib/env";
-import { generateLabelPng } from "@/lib/print/label-art";
 import { generateLabelsPdf } from "@/lib/print/label-pdf";
 import { uploadPrintAsset } from "@/lib/print/storage";
 import { submitDiginateOrder, pollDiginateOrder } from "@/lib/print/diginate";
@@ -51,6 +50,7 @@ async function submitViaDiginate(
   boxes: Box[],
   webOrigin: string
 ): Promise<void> {
+  const { generateLabelPng } = await import("@/lib/print/label-art");
   // Render + store one PNG per box, and collect print_assets rows.
   const items = [];
   for (const box of boxes) {
