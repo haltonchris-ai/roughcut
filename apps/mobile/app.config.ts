@@ -46,7 +46,12 @@ const config: ExpoConfig = {
       },
     ],
   },
-  plugins: ["expo-router", "expo-secure-store", "expo-sqlite"],
+    plugins: [
+    "expo-router",
+    "expo-secure-store",
+    "expo-sqlite",
+    ["expo-build-properties", { ios: { buildReactNativeFromSource: true } }],
+  ],
   extra: {
     router: { origin: false },
     eas: {
