@@ -3,6 +3,10 @@ node_modules/
 .env.local
 .env.*.local
 
+# web (Next.js)
+apps/web/.next/
+apps/web/out/
+
 # mobile (Expo)
 apps/mobile/.expo/
 apps/mobile/dist/
@@ -23,3 +27,4 @@ packages/shared/dist/
 *.log
 npm-debug.log*
 coverage/
+.vercel
