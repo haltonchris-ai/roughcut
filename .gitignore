@@ -1,0 +1,25 @@
+node_modules/
+.env
+.env.local
+.env.*.local
+
+# mobile (Expo)
+apps/mobile/.expo/
+apps/mobile/dist/
+apps/mobile/web-build/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# shared/build output
+packages/shared/dist/
+**/dist/
+**/build/
+
+# misc
+.DS_Store
+*.log
+npm-debug.log*
+coverage/
