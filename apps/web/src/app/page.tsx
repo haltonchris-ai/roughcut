@@ -20,6 +20,9 @@ const steps = [
   },
 ];
 
+// Rendered per request so the sample QR always uses the live site address.
+export const dynamic = "force-dynamic";
+
 export default function MarketingPage() {
   const freeLimits = PLAN_LIMITS.free;
 
@@ -49,7 +52,7 @@ export default function MarketingPage() {
             </p>
           </div>
           <div className="flex flex-1 items-center justify-center">
-            <StickerGraphic url={env.webOrigin()} />
+            <StickerGraphic url={`${env.webOrigin()}/get`} />
           </div>
         </section>
 
