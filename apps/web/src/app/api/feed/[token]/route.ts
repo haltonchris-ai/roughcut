@@ -25,6 +25,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ toke
   const { token } = await params;
   const url = new URL(request.url);
   const jobFilter = url.searchParams.get("job");
+  const kinds = (url.searchParams.get("events") ?? "").split(",").map((k) => k.trim()).filter(Boolean);
   const asJson = url.searchParams.get("format") === "json";
 
   if (!/^[A-Za-z0-9_-]{20,80}$/.test(token)) return new NextResponse("Not found", { status: 404 });
@@ -115,7 +116,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ toke
   }
 
   events.sort((a, b) => (a.at < b.at ? 1 : -1));
-  const items = events.slice(0, 100);
+  const items = events.filter((e) => kinds.length === 0 || kinds.includes(e.kind)).slice(0, 100);
   const headers = { "Cache-Control": "private, max-age=60", "X-Robots-Tag": "noindex" };
   const feedTitle = `${company?.name ?? "RoughCUT"} on RoughCUT`;
 
@@ -123,7 +124,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ toke
     return NextResponse.json({ title: feedTitle, items }, { headers });
   }
 
-  const self = `${origin}/api/feed/${token}${jobFilter ? `?job=${jobFilter}` : ""}`;
+  const self = url.toString().replace(url.origin, origin);
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
     `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>` +

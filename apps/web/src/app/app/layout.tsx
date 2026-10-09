@@ -8,6 +8,7 @@ const NAV = [
   { href: "/app/jobs", label: "Jobs" },
   { href: "/app/team", label: "Team" },
   { href: "/app/stickers", label: "Stickers" },
+  { href: "/app/integrations", label: "Integrations", adminOnly: true },
   { href: "/app/billing", label: "Billing" },
 ];
 
@@ -23,7 +24,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             Rough<span className="text-accent">CUT</span>
           </Link>
           <nav className="flex items-center gap-6 text-sm text-muted">
-            {NAV.map((item) => (
+            {NAV.filter((item) => !("adminOnly" in item) || profile.role === "company_admin").map((item) => (
               <Link key={item.href} href={item.href} className="hover:text-ink">
                 {item.label}
               </Link>

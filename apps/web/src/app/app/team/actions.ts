@@ -118,15 +118,15 @@ export async function setUserDisabled(formData: FormData): Promise<void> {
 // invalidates the old URL immediately.
 export async function regenerateFeedToken(): Promise<void> {
   const { profile } = await requireCompanyProfile();
-  if (profile.role !== "company_admin") redirect("/app/team");
+  if (profile.role !== "company_admin") redirect("/app/integrations");
 
   const admin = createAdminClient();
   const token = crypto.randomBytes(24).toString("base64url");
   const { error } = await admin
     .from("company_feeds")
     .upsert({ company_id: profile.company_id, token, created_at: new Date().toISOString() }, { onConflict: "company_id" });
-  if (error) redirect("/app/team?error=" + encodeURIComponent("Could not create feed: " + error.message));
+  if (error) redirect("/app/integrations?error=" + encodeURIComponent("Could not create feed: " + error.message));
 
-  revalidatePath("/app/team");
-  redirect("/app/team");
+  revalidatePath("/app/integrations");
+  redirect("/app/integrations");
 }

@@ -1,8 +1,6 @@
 import { requireCompanyProfile } from "@/lib/current-profile";
-import { createInvite, setUserDisabled, regenerateFeedToken } from "./actions";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { env } from "@/lib/env";
-import { SubmitButton } from "@/components/submit-button";
+import Link from "next/link";
+import { createInvite, setUserDisabled } from "./actions";
 import type { Profile } from "@roughcut/shared";
 
 export default async function TeamPage({
@@ -13,16 +11,6 @@ export default async function TeamPage({
   const { profile, supabase } = await requireCompanyProfile();
   const sp = await searchParams;
   const isAdmin = profile.role === "company_admin";
-
-  let feedUrl: string | null = null;
-  if (isAdmin) {
-    const { data: feed } = await createAdminClient()
-      .from("company_feeds")
-      .select("token")
-      .eq("company_id", profile.company_id)
-      .maybeSingle();
-    if (feed?.token) feedUrl = `${env.webOrigin()}/api/feed/${feed.token}`;
-  }
 
   const { data: members } = await supabase.from("profiles").select("*").order("created_at").returns<Profile[]>();
 
@@ -83,31 +71,10 @@ export default async function TeamPage({
 
         <div className="card p-5">
           <h2 className="font-semibold">Connect to Asana or other tools</h2>
-          <p className="mt-2 text-sm text-muted">
-            A private feed of new jobs, specified and installed boxes, and sticker orders. In Zapier or Make, choose
-            “RSS: New item in feed” and then “Asana: Create task”.
-          </p>
-          {feedUrl ? (
-            <div className="mt-3 text-sm">
-              <p className="font-medium">RSS feed URL</p>
-              <p className="mt-1 break-all rounded-lg bg-dim p-2 font-mono text-xs">{feedUrl}</p>
-              <p className="mt-2 text-xs text-muted">
-                Add <span className="font-mono">?format=json</span> for JSON, or <span className="font-mono">?job=JOB_ID</span> for one
-                job. Anyone with this link can read the feed, so treat it like a password.
-              </p>
-            </div>
-          ) : (
-            <p className="mt-3 text-sm text-muted">No feed link yet.</p>
-          )}
-          <form action={regenerateFeedToken} className="mt-3">
-            <SubmitButton
-              pendingText="Working…"
-              className="btn-outline"
-              confirmMessage={feedUrl ? "Create a new link? The current link will stop working." : undefined}
-            >
-              {feedUrl ? "Create a new link" : "Create feed link"}
-            </SubmitButton>
-          </form>
+          <p className="mt-2 text-sm text-muted">Get a private feed of jobs, boxes and sticker orders.</p>
+          <Link href="/app/integrations" className="btn-outline mt-3 inline-block">
+            Set up a feed
+          </Link>
         </div>
         </div>
       )}
