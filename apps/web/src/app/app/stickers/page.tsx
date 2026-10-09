@@ -1,6 +1,7 @@
 import { requireCompanyProfile } from "@/lib/current-profile";
 import { createStickerOrder } from "./actions";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { PrintGuide } from "@/components/print-guide";
 import type { Job, StickerOrder } from "@roughcut/shared";
 
 async function signedPdfUrl(path: string): Promise<string | null> {
@@ -66,6 +67,7 @@ export default async function StickersPage({
         </div>
       </div>
 
+      <div className="flex flex-col gap-6">
       {isAdmin && (
         <div className="card p-5">
           <h2 className="font-semibold">Order stickers</h2>
@@ -95,6 +97,8 @@ export default async function StickersPage({
           </form>
         </div>
       )}
+      <PrintGuide />
+      </div>
     </div>
   );
 }

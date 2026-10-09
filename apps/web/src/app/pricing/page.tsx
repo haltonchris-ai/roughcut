@@ -19,8 +19,9 @@ export default function PricingPage() {
         <span className="eyebrow">Pricing</span>
         <h1 className="mt-3 text-4xl">Pick the plan that fits your crew.</h1>
         <p className="mt-2 max-w-xl text-muted">
-          Every plan includes unlimited scans. Free accounts can print their own labels from a ready-made PDF; Crew and
-          Company can also have printed stickers shipped.
+          Every plan includes unlimited scans. Free accounts can print their own labels from a ready-made PDF on standard
+          2&quot; × 4&quot; white labels (Avery 5163 / 8363, sold at Staples); Crew and Company can also have printed
+          stickers shipped.
         </p>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-3">

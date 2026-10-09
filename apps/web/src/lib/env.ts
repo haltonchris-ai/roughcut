@@ -15,6 +15,8 @@ export const env = {
   stripeWebhookSecret: () => required("STRIPE_WEBHOOK_SECRET"),
   stripePriceCrew: () => required("STRIPE_PRICE_CREW"),
   stripePriceCompany: () => required("STRIPE_PRICE_COMPANY"),
+  // Where /get sends iPhone users: the TestFlight public link now, the App Store page later.
+  iosAppUrl: () => process.env.IOS_APP_URL || undefined,
   diginateApiKey: () => process.env.DIGINATE_API_KEY, // optional: unset means PDF fallback
   diginateApiBaseUrl: () => process.env.DIGINATE_API_BASE_URL ?? "https://api.diginate.com",
 };

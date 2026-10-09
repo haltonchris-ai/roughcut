@@ -87,9 +87,18 @@ async function fallbackToPdf(
   boxes: Box[],
   webOrigin: string
 ): Promise<void> {
+  const { data: company } = await admin.from("companies").select("name").eq("id", order.company_id).maybeSingle();
+  const codes = boxes.map((b) => b.short_code);
   const pdf = await generateLabelsPdf(
     boxes.map((b) => ({ publicCode: b.public_code, shortCode: b.short_code })),
-    webOrigin
+    webOrigin,
+    {
+      companyName: company?.name ?? "Your company",
+      quantity: boxes.length,
+      firstCode: codes[0]!,
+      lastCode: codes[codes.length - 1]!,
+      date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
+    }
   );
   const path = await uploadPrintAsset(order.company_id, `${order.id}/labels.pdf`, pdf, "application/pdf");
 
