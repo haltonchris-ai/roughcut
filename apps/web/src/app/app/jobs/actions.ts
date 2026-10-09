@@ -111,21 +111,23 @@ export async function reprintOrder(formData: FormData): Promise<void> {
   const { profile, supabase } = await requireCompanyProfile();
   const orderId = String(formData.get("orderId") ?? "");
   const jobId = String(formData.get("jobId") ?? "");
+  const rt = String(formData.get("returnTo") ?? "");
+  const back = rt.startsWith("/app/") && !rt.startsWith("//") ? rt : `/app/jobs/${jobId}`;
   if (profile.role !== "company_admin" || !orderId) {
-    redirect(`/app/jobs/${jobId}`);
+    redirect(back);
   }
   // RLS scopes this select to the caller's company.
   const { data: order } = await supabase.from("sticker_orders").select("id").eq("id", orderId).maybeSingle();
-  if (!order) redirect(`/app/jobs/${jobId}`);
+  if (!order) redirect(back);
 
   try {
     const { processStickerOrder } = await import("@/lib/print");
     await processStickerOrder(orderId);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    redirect(`/app/jobs/${jobId}?error=` + encodeURIComponent("Reprint failed: " + msg.slice(0, 180)));
+    redirect(`${back}${back.includes("?") ? "&" : "?"}error=` + encodeURIComponent("Reprint failed: " + msg.slice(0, 180)));
   }
   revalidatePath(`/app/jobs/${jobId}`);
   revalidatePath("/app/stickers");
-  redirect(`/app/jobs/${jobId}?reprinted=1#stickers`);
+  redirect(`${back}${back.includes("?") ? "&" : "?"}reprinted=1#job-${jobId}`);
 }

@@ -88,5 +88,5 @@ export async function createStickerOrder(formData: FormData): Promise<void> {
 
   revalidatePath("/app/stickers");
   revalidatePath(`/app/jobs/${jobId}`);
-  redirect("/app/stickers?ordered=1");
+  redirect(`/app/stickers?ordered=1&done=${encodeURIComponent(jobId)}#job-${jobId}`);
 }

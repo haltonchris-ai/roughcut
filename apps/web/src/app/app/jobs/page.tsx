@@ -4,11 +4,16 @@ import { createJob, deleteJob } from "./actions";
 import { SubmitButton } from "@/components/submit-button";
 import { getStickerUsage } from "@/lib/sticker-usage";
 import { StickerBanner } from "@/components/sticker-banner";
+import { jobNextStep } from "@/lib/job-progress";
+import { FilterBar } from "@/components/filter-bar";
+import { sinceMs } from "@/lib/date-range";
+import { jobRef } from "@/lib/job-ref";
 import type { Job } from "@roughcut/shared";
 
-export default async function JobsPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+export default async function JobsPage({ searchParams }: { searchParams: Promise<{ error?: string; q?: string; range?: string; status?: string }> }) {
   const { profile, supabase } = await requireCompanyProfile();
-  const { error } = await searchParams;
+  const sp = await searchParams;
+  const { error } = sp;
 
   const { data: jobs } = await supabase
     .from("jobs")
@@ -17,6 +22,15 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
     .returns<Job[]>();
 
   const { usage, byJob } = await getStickerUsage(supabase, profile.company_id);
+  const allJobs = jobs ?? [];
+  const q = (sp.q ?? "").trim().toLowerCase();
+  const since = sinceMs(sp.range);
+  const filtered = allJobs.filter(
+    (j) =>
+      (!q || [j.name, j.address, jobRef(j.id)].some((v) => v.toLowerCase().includes(q))) &&
+      (!sp.status || j.status === sp.status) &&
+      (since === null || new Date(j.created_at).getTime() >= since)
+  );
   const canDelete = profile.role === "company_admin";
   const canCreate = profile.role === "company_admin" || profile.role === "foreman";
 
@@ -28,21 +42,43 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
           <StickerBanner usage={usage} isAdmin={profile.role === "company_admin"} variant="status" />
         </div>
         {error && <p className="mt-3 text-sm text-bad">{error}</p>}
+        <div className="mt-4">
+          <FilterBar
+            action="/app/jobs"
+            q={sp.q}
+            range={sp.range}
+            status={sp.status}
+            withStatus
+            rangeLabel="Created"
+            searchPlaceholder="Job name, address or ID"
+            shown={filtered.length}
+            total={allJobs.length}
+          />
+        </div>
         <div className="mt-6 flex flex-col gap-3">
-          {(jobs ?? []).map((job) => (
+          {filtered.map((job) => (
             <div key={job.id} className="card flex items-center gap-3 p-4 hover:border-accent">
               <Link href={`/app/jobs/${job.id}`} className="flex flex-1 items-center justify-between">
                 <div>
-                  <p className="font-semibold">{job.name}</p>
-                  <p className="text-sm text-muted">{job.address}</p>
-                  <p className="mt-1 text-xs text-muted">
-                    {(() => {
-                      const t = byJob.get(job.id);
-                      return t
-                        ? `${t.total} stickers · ${t.assigned} assigned · ${t.unassigned} unassigned`
-                        : "No stickers yet";
-                    })()}
+                  <p className="font-semibold">
+                    {job.name} <span className="ml-1 font-mono text-xs font-normal text-muted">{jobRef(job.id)}</span>
                   </p>
+                  <p className="text-sm text-muted">{job.address}</p>
+                  {(() => {
+                    const t = byJob.get(job.id);
+                    const n = jobNextStep(job.status, t);
+                    return (
+                      <p
+                        className={
+                          "mt-1 text-xs " +
+                          (n.tone === "todo" ? "font-semibold text-accent" : n.tone === "done" ? "text-good" : "text-muted")
+                        }
+                      >
+                        {n.label}
+                        {t && t.total > 0 ? ` · ${t.total} stickers` : ""}
+                      </p>
+                    );
+                  })()}
                 </div>
                 <span
                   className={
@@ -54,7 +90,7 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
                 </span>
               </Link>
               <Link href={`/app/jobs/${job.id}#stickers`} className="whitespace-nowrap text-xs text-accent hover:underline">
-                {byJob.has(job.id) ? "Stickers" : "Order stickers"}
+                {byJob.has(job.id) ? "Open" : "Order stickers"}
               </Link>
               {canDelete && (
                 <form action={deleteJob}>
@@ -70,7 +106,8 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
               )}
             </div>
           ))}
-          {(jobs ?? []).length === 0 && <p className="text-muted">No jobs yet.</p>}
+          {allJobs.length === 0 && <p className="text-muted">No jobs yet. Create your first job on the right.</p>}
+          {allJobs.length > 0 && filtered.length === 0 && <p className="text-muted">No jobs match those filters.</p>}
         </div>
       </div>
 

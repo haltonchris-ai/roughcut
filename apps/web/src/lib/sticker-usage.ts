@@ -29,8 +29,9 @@ export function lowThreshold(limit: number): number {
 
 export interface JobTally {
   total: number;
-  assigned: number;
+  assigned: number; // specified or installed
   unassigned: number;
+  installed: number;
 }
 
 // PostgREST returns at most 1000 rows per request, so page through.
@@ -63,8 +64,9 @@ export async function getStickerUsage(
   const byJob = new Map<string, JobTally>();
   let assigned = 0;
   for (const b of boxes) {
-    const t = byJob.get(b.job_id) ?? { total: 0, assigned: 0, unassigned: 0 };
+    const t = byJob.get(b.job_id) ?? { total: 0, assigned: 0, unassigned: 0, installed: 0 };
     t.total++;
+    if (b.status === "installed") t.installed++;
     if (b.status === "open") t.unassigned++;
     else {
       t.assigned++;
