@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { signup } from "./actions";
 import { Wordmark } from "@/components/brand";
+import { SubmitButton } from "@/components/submit-button";
 import { COMPANY_PLANS, type CompanyPlan } from "@roughcut/shared";
 
 export default async function SignupPage({
@@ -37,9 +38,9 @@ export default async function SignupPage({
         <Field label="Your name" name="fullName" placeholder="Chris Halton" required />
         <Field label="Email" name="email" type="email" placeholder="you@business.com" required />
         <Field label="Password" name="password" type="password" minLength={8} required />
-        <button type="submit" className="btn-primary mt-2">
+        <SubmitButton className="btn-primary mt-2" pendingText="Creating your account…">
           {plan === "free" ? "Create free account" : "Continue to payment"}
-        </button>
+        </SubmitButton>
       </form>
 
       <p className="mt-6 text-sm text-muted">
