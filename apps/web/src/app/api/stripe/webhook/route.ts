@@ -62,9 +62,11 @@ export async function POST(req: Request): Promise<NextResponse> {
           const subscriptionId =
             typeof session.subscription === "string" ? session.subscription : session.subscription.id;
           const sub = await stripe.subscriptions.retrieve(subscriptionId);
+          const paidPlan = planFromPriceId(sub.items.data[0]?.price?.id);
           await admin
             .from("companies")
             .update({
+              ...(paidPlan ? { plan: paidPlan } : {}),
               stripe_subscription_id: subscriptionId,
               stripe_customer_id:
                 typeof session.customer === "string" ? session.customer : session.customer?.id ?? undefined,

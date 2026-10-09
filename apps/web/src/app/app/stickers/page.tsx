@@ -188,7 +188,7 @@ export default async function StickersPage({ searchParams }: { searchParams: Pro
                         <p className="mt-1 text-muted">
                           Order {usage.remaining >= 10 ? `up to ${usage.remaining}` : "fewer"} or upgrade your plan to
                           unlock more.{" "}
-                          <Link href="/pricing?reason=stickers" className="font-semibold text-accent hover:underline">
+                          <Link href="/app/billing?reason=stickers#plans" className="font-semibold text-accent hover:underline">
                             See plans
                           </Link>
                         </p>

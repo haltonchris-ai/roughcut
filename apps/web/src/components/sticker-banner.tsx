@@ -72,7 +72,7 @@ export function StickerBanner({
         </p>
       </div>
       {isAdmin && nextPlan && (
-        <Link href="/pricing?reason=stickers" className="btn-primary whitespace-nowrap">
+        <Link href="/app/billing?reason=stickers#plans" className="btn-primary whitespace-nowrap">
           Upgrade to {planName(nextPlan)}
         </Link>
       )}
