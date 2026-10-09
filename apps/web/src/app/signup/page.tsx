@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { signup } from "./actions";
+import { Wordmark } from "@/components/brand";
 import { COMPANY_PLANS, type CompanyPlan } from "@roughcut/shared";
 
 export default async function SignupPage({
@@ -15,9 +16,10 @@ export default async function SignupPage({
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-16">
-      <h1 className="text-2xl font-bold">
-        Start your Rough<span className="text-accent">CUT</span> account
-      </h1>
+      <Link href="/" aria-label="RoughCUT home" className="mb-8 w-fit">
+        <Wordmark />
+      </Link>
+      <h1 className="text-3xl">Create your account.</h1>
       <p className="mt-2 text-muted">
         Plan: <span className="font-medium capitalize text-ink">{plan}</span>.{" "}
         <Link href="/pricing" className="text-accent hover:underline">
@@ -26,7 +28,7 @@ export default async function SignupPage({
       </p>
 
       {error && (
-        <div className="mt-4 rounded-lg border border-bad/40 bg-bad/10 p-3 text-sm text-bad">{error}</div>
+        <div className="mt-4 rounded-lg border border-bad/40 bg-[#FBE9E7] p-3 text-sm text-bad">{error}</div>
       )}
 
       <form action={signup} className="mt-6 flex flex-col gap-4">
@@ -67,7 +69,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-1.5 text-sm">
-      <span className="font-medium text-muted">{label}</span>
+      <span className="text-xs font-bold uppercase tracking-wide text-muted">{label}</span>
       <input
         className="input"
         name={name}

@@ -4,45 +4,90 @@
 
 html,
 body {
-  background-color: #121212;
-  color: #f5f5f5;
+  background-color: #f6f2e9;
+  color: #181b20;
 }
 
 * {
   box-sizing: border-box;
 }
 
+h1,
+h2,
+h3 {
+  font-family: Archivo, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid #a8531f;
+  outline-offset: 2px;
+}
+
 .btn-primary {
-  background-color: #f97316;
-  color: #121212;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #a8531f;
+  color: #ffffff;
   font-weight: 600;
   border-radius: 0.5rem;
   padding: 0.75rem 1.5rem;
+  min-height: 2.75rem;
   transition: background-color 150ms ease;
 }
 .btn-primary:hover {
-  background-color: #ea6a0c;
+  background-color: #8a4318;
 }
 .btn-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #181b20;
+  color: #181b20;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  min-height: 2.75rem;
+  transition: background-color 150ms ease;
+}
+.btn-outline:hover {
+  background-color: #eee8d9;
+}
+
 .card {
-  background-color: #1c1c1e;
-  border: 1px solid #2a2a2d;
+  background-color: #ffffff;
+  border: 1px solid #ded6c1;
   border-radius: 0.75rem;
 }
 
 .input {
-  background-color: #141416;
-  border: 1px solid #2a2a2d;
+  background-color: #ffffff;
+  border: 1.5px solid #ded6c1;
   border-radius: 0.5rem;
-  padding: 0.625rem 0.875rem;
-  color: #f5f5f5;
+  padding: 0.75rem 0.875rem;
+  color: #181b20;
   width: 100%;
 }
+.input::placeholder {
+  color: #8a8f96;
+}
 .input:focus {
-  outline: none;
-  border-color: #f97316;
+  outline: 2px solid #a8531f;
+  outline-offset: 1px;
+  border-color: #a8531f;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a8531f;
 }

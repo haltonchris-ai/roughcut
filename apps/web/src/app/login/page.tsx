@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { login } from "./actions";
+import { Wordmark } from "@/components/brand";
 
 export default async function LoginPage({
   searchParams,
@@ -11,20 +12,24 @@ export default async function LoginPage({
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-16">
-      <h1 className="text-2xl font-bold">Log in</h1>
+      <Link href="/" aria-label="RoughCUT home" className="mb-8 w-fit">
+        <Wordmark />
+      </Link>
+      <h1 className="text-3xl">Welcome back.</h1>
+      <p className="mt-2 text-muted">Log in to your RoughCUT account.</p>
 
       {sp.error && (
-        <div className="mt-4 rounded-lg border border-bad/40 bg-bad/10 p-3 text-sm text-bad">{sp.error}</div>
+        <div className="mt-4 rounded-lg border border-bad/40 bg-[#FBE9E7] p-3 text-sm text-bad">{sp.error}</div>
       )}
 
       <form action={login} className="mt-6 flex flex-col gap-4">
         <input type="hidden" name="next" value={next} />
         <label className="flex flex-col gap-1.5 text-sm">
-          <span className="font-medium text-muted">Email</span>
+          <span className="text-xs font-bold uppercase tracking-wide text-muted">Email</span>
           <input className="input" name="email" type="email" required />
         </label>
         <label className="flex flex-col gap-1.5 text-sm">
-          <span className="font-medium text-muted">Password</span>
+          <span className="text-xs font-bold uppercase tracking-wide text-muted">Password</span>
           <input className="input" name="password" type="password" required />
         </label>
         <button type="submit" className="btn-primary mt-2">
