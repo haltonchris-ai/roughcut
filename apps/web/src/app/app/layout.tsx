@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { requireCompanyProfile } from "@/lib/current-profile";
 import { signOut } from "./actions";
+import { getStickerUsage } from "@/lib/sticker-usage";
+import { StickerBanner } from "@/components/sticker-banner";
 
 const NAV = [
   { href: "/app/jobs", label: "Jobs" },
@@ -10,7 +12,8 @@ const NAV = [
 ];
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
-  const { profile } = await requireCompanyProfile();
+  const { profile, supabase } = await requireCompanyProfile();
+  const { usage } = await getStickerUsage(supabase, profile.company_id);
 
   return (
     <div className="min-h-screen">
@@ -38,7 +41,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-page px-6 py-10">{children}</main>
+      <main className="mx-auto max-w-page px-6 py-10">
+        <StickerBanner usage={usage} isAdmin={profile.role === "company_admin"} variant="alerts" />
+        {children}
+      </main>
     </div>
   );
 }

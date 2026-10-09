@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { requireCompanyProfile } from "@/lib/current-profile";
+import { getStickerUsage } from "@/lib/sticker-usage";
 import type { ShipTo } from "@roughcut/shared";
 
 function friendlyError(error: { code?: string; message: string }): string {
@@ -34,6 +35,13 @@ export async function createStickerOrder(formData: FormData): Promise<void> {
   }
   if (!shipTo.name || !shipTo.address || !shipTo.city || !shipTo.region || !shipTo.postal_code) {
     redirect("/app/stickers?error=" + encodeURIComponent("Fill in the full shipping address."));
+  }
+
+  // Check the plan allowance up front so a too-big order sends the admin to the
+  // upgrade flow instead of failing halfway (and leaving an empty order behind).
+  const { usage } = await getStickerUsage(supabase, profile.company_id);
+  if (usage.remaining !== null && quantity > usage.remaining) {
+    redirect(`/app/stickers?need=${quantity}&job=${encodeURIComponent(jobId)}`);
   }
 
   const { data: order, error: orderErr } = await supabase
