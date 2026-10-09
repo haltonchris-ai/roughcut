@@ -1,41 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-// Lightweight YouTube embed: shows the thumbnail and only loads the real
-// player (privacy-friendly youtube-nocookie domain) when someone clicks play,
-// so the homepage stays fast.
-export function VideoEmbed({ videoId, title }: { videoId: string; title: string }) {
-  const [playing, setPlaying] = useState(false);
-  const [thumb, setThumb] = useState(`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`);
+// Self-hosted demo player: poster + big play button, then native controls.
+// No third-party branding or tracking. Files live in /public/demo.
+export function VideoEmbed({
+  src,
+  poster,
+  title,
+}: {
+  src: string;
+  poster: string;
+  title: string;
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [started, setStarted] = useState(false);
+
+  function start() {
+    setStarted(true);
+    const v = ref.current;
+    if (v) void v.play().catch(() => {});
+  }
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-navy shadow-xl ring-1 ring-line">
-      {playing ? (
-        <iframe
-          className="absolute inset-0 h-full w-full"
-          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
-          title={title}
-          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-          allowFullScreen
-        />
-      ) : (
+    <div
+      className="relative w-full overflow-hidden rounded-2xl border border-line bg-ink shadow-lg"
+      style={{ aspectRatio: "1792 / 512" }}
+    >
+      <video
+        ref={ref}
+        className="h-full w-full object-cover"
+        src={src}
+        poster={poster}
+        title={title}
+        preload="metadata"
+        playsInline
+        controls={started}
+        onEnded={() => setStarted(false)}
+      />
+      {!started && (
         <button
           type="button"
-          onClick={() => setPlaying(true)}
-          className="group absolute inset-0 h-full w-full"
+          onClick={start}
           aria-label={`Play video: ${title}`}
+          className="group absolute inset-0 flex items-center justify-center bg-ink/25 transition hover:bg-ink/35"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={thumb}
-            alt=""
-            className="h-full w-full object-cover"
-            onError={() => setThumb(`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`)}
-          />
-          <span className="absolute inset-0 bg-ink/25 transition group-hover:bg-ink/10" />
-          <span className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-accent text-white shadow-lg transition group-hover:scale-105 group-hover:bg-accent-hover">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white shadow-xl transition group-hover:scale-105 group-hover:bg-accent-hover sm:h-20 sm:w-20">
+            <svg viewBox="0 0 24 24" className="ml-1 h-7 w-7 sm:h-9 sm:w-9" fill="currentColor" aria-hidden="true">
               <path d="M8 5v14l11-7z" />
             </svg>
           </span>

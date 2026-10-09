@@ -70,7 +70,7 @@ export default function MarketingPage() {
             </p>
           </div>
           <div className="mt-8">
-            <VideoEmbed videoId={DEMO_VIDEO_ID} title="RoughCUT demo: scan the sticker, see the box details" />
+            <VideoEmbed src="/demo/roughcut-demo.mp4" poster="/demo/poster.jpg" title="RoughCUT demo: scan the sticker, see the box details" />
           </div>
           <p className="mt-3 text-center text-sm text-faint">
             <a
