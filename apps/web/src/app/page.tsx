@@ -2,6 +2,9 @@ import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { StickerGraphic } from "@/components/sticker-graphic";
+import { VideoEmbed } from "@/components/video-embed";
+
+const DEMO_VIDEO_ID = "VjLzdFwBTO8";
 import { env } from "@/lib/env";
 import { PLAN_LIMITS, PLAN_PRICING } from "@roughcut/shared";
 
@@ -43,8 +46,8 @@ export default function MarketingPage() {
               <Link href="/signup" className="btn-primary px-7">
                 Start free
               </Link>
-              <Link href="/#how" className="btn-outline px-7">
-                See how it works
+              <Link href="/#video" className="btn-outline px-7">
+                Watch the demo
               </Link>
             </div>
             <p className="text-sm text-faint">
@@ -54,6 +57,31 @@ export default function MarketingPage() {
           <div className="flex flex-1 items-center justify-center">
             <StickerGraphic url={`${env.webOrigin()}/get`} />
           </div>
+        </section>
+
+        {/* Demo video */}
+        <section id="video" className="mx-auto max-w-4xl scroll-mt-4 px-6 pb-20 sm:px-10 lg:pb-24">
+          <div className="text-center">
+            <span className="eyebrow">See it in action</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl">Scan the sticker. See the box.</h2>
+            <p className="mx-auto mt-3 max-w-xl text-muted">
+              From the foreman laying out the job to an installer scanning weeks later, here is how RoughCUT works on
+              site.
+            </p>
+          </div>
+          <div className="mt-8">
+            <VideoEmbed videoId={DEMO_VIDEO_ID} title="RoughCUT demo: scan the sticker, see the box details" />
+          </div>
+          <p className="mt-3 text-center text-sm text-faint">
+            <a
+              href={`https://youtu.be/${DEMO_VIDEO_ID}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              Watch on YouTube
+            </a>
+          </p>
         </section>
 
         {/* Problem strip */}
