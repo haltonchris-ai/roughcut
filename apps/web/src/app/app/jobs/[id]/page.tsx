@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireCompanyProfile } from "@/lib/current-profile";
 import { closeJob, reprintOrder } from "../actions";
-import { signedPrintUrl } from "@/lib/print/signed-url";
+import { signedPrintUrl, signedPrintUrlIfExists } from "@/lib/print/signed-url";
 import { jobRef } from "@/lib/job-ref";
 import { SubmitButton } from "@/components/submit-button";
 import { BOX_TYPE_LABELS, type Box, type Job, type StickerOrder } from "@roughcut/shared";
@@ -59,7 +59,7 @@ export default async function JobDetailPage({
         first: mine[0]?.short_code,
         last: mine[mine.length - 1]?.short_code,
         labelsUrl: ready ? await signedPrintUrl(order.pdf_path!) : null,
-        startUrl: ready ? await signedPrintUrl(order.pdf_path!.replace(/labels\.pdf$/, "start-here.pdf")) : null,
+        startUrl: ready ? await signedPrintUrlIfExists(order.pdf_path!.replace(/labels\.pdf$/, "start-here.pdf")) : null,
       };
     })
   );

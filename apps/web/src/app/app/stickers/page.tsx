@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireCompanyProfile } from "@/lib/current-profile";
 import { createStickerOrder } from "./actions";
 import { reprintOrder } from "../jobs/actions";
-import { signedPrintUrl } from "@/lib/print/signed-url";
+import { signedPrintUrl, signedPrintUrlIfExists } from "@/lib/print/signed-url";
 import { PrintGuide } from "@/components/print-guide";
 import { SubmitButton } from "@/components/submit-button";
 import { StickerBanner } from "@/components/sticker-banner";
@@ -61,7 +61,7 @@ export default async function StickersPage({ searchParams }: { searchParams: Pro
       const ready = o.status === "ready_for_manual_print" && o.pdf_path;
       urls.set(o.id, {
         labels: ready ? await signedPrintUrl(o.pdf_path!) : null,
-        start: ready ? await signedPrintUrl(o.pdf_path!.replace(/labels\.pdf$/, "start-here.pdf")) : null,
+        start: ready ? await signedPrintUrlIfExists(o.pdf_path!.replace(/labels\.pdf$/, "start-here.pdf")) : null,
       });
     })
   );
@@ -152,13 +152,16 @@ export default async function StickersPage({ searchParams }: { searchParams: Pro
                         <div className="flex flex-wrap items-center gap-2">
                           {startUrl && <a href={startUrl} target="_blank" rel="noopener noreferrer" className="btn-outline">1. Start here</a>}
                           {labelsUrl && <a href={labelsUrl} target="_blank" rel="noopener noreferrer" className="btn-outline">{startUrl ? "2. Stickers" : "Download PDF"}</a>}
-                          {isAdmin && (stuck || (labelsUrl && !startUrl)) && (
+                          {isAdmin && (stuck || labelsUrl) && (
                             <form action={reprintOrder}>
                               <input type="hidden" name="orderId" value={o.id} />
                               <input type="hidden" name="jobId" value={job.id} />
                               <input type="hidden" name="returnTo" value="/app/stickers" />
-                              <SubmitButton pendingText="Generating…" className="btn-primary">
-                                {stuck ? "Generate PDFs" : "Update to new format"}
+                              <SubmitButton
+                                pendingText="Generating…"
+                                className={stuck || !startUrl ? "btn-primary" : "text-xs text-muted hover:text-ink hover:underline"}
+                              >
+                                {stuck ? "Generate PDFs" : !startUrl ? "Update to new format" : "Regenerate"}
                               </SubmitButton>
                             </form>
                           )}
