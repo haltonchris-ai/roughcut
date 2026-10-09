@@ -32,6 +32,9 @@ export default async function LoginPage({
           <span className="text-xs font-bold uppercase tracking-wide text-muted">Password</span>
           <input className="input" name="password" type="password" required />
         </label>
+        <Link href="/forgot-password" className="-mt-2 w-fit text-sm text-accent hover:underline">
+          Forgot or need to set your password?
+        </Link>
         <button type="submit" className="btn-primary mt-2">
           Log in
         </button>
