@@ -4,7 +4,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { StickerGraphic } from "@/components/sticker-graphic";
 import { VideoEmbed } from "@/components/video-embed";
 
-const DEMO_VIDEO_ID = "VjLzdFwBTO8";
 import { env } from "@/lib/env";
 import { PLAN_LIMITS, PLAN_PRICING } from "@roughcut/shared";
 
@@ -72,16 +71,6 @@ export default function MarketingPage() {
           <div className="mt-8">
             <VideoEmbed src="/demo/roughcut-demo.mp4" poster="/demo/poster.jpg" title="RoughCUT demo: scan the sticker, see the box details" />
           </div>
-          <p className="mt-3 text-center text-sm text-faint">
-            <a
-              href={`https://youtu.be/${DEMO_VIDEO_ID}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-            >
-              Watch on YouTube
-            </a>
-          </p>
         </section>
 
         {/* Problem strip */}
