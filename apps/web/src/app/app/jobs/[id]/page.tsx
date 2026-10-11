@@ -93,7 +93,7 @@ export default async function JobDetailPage({
   } else if (assigned === 0) {
     next = {
       title: "Step 2: Print your stickers and put them on boxes",
-      body: "Download both files below. Print the Start here page on plain paper and the Stickers file on label sheets. Then scan each box with the RoughCUT app to log it.",
+      body: "Download both files below. Print the Start here page on plain paper and the Stickers file on label sheets. Then scan each box with the RoughNOTES app to log it.",
       cta: latest?.startUrl
         ? { href: latest.startUrl, label: "Download Start here" }
         : latest?.labelsUrl

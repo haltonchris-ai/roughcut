@@ -71,7 +71,7 @@ export default function Diag() {
   return (
     <View style={{ flex: 1, backgroundColor: "#121212", paddingTop: 70, paddingHorizontal: 16 }}>
       <StatusBar style="light" />
-      <Text style={{ color: "#F97316", fontSize: 22, fontWeight: "700" }}>RoughCUT diagnostic</Text>
+      <Text style={{ color: "#F97316", fontSize: 22, fontWeight: "700" }}>RoughNOTES diagnostic</Text>
       <ScrollView style={{ marginTop: 12 }}>
         {tests.map((t) => (
           <Pressable

@@ -7,7 +7,7 @@ import type { ExpoConfig } from "expo/config";
 const webOriginHost = process.env.WEB_ORIGIN_HOST ?? "roughcut.app";
 
 const config: ExpoConfig = {
-  name: "RoughCUT",
+  name: "RoughNOTES",
   slug: "roughcut",
   scheme: "roughcut",
   version: "0.1.0",
@@ -24,7 +24,7 @@ const config: ExpoConfig = {
     bundleIdentifier: "com.roughcut.app",
     supportsTablet: false,
     infoPlist: {
-      NSCameraUsageDescription: "RoughCUT uses the camera to scan box stickers.",
+      NSCameraUsageDescription: "RoughNOTES uses the camera to scan box stickers.",
       UIStatusBarStyle: "UIStatusBarStyleLightContent",
       ITSAppUsesNonExemptEncryption: false,
     },

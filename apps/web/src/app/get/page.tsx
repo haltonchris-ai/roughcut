@@ -22,7 +22,7 @@ export default async function GetAppPage() {
       <SiteNav />
       <main className="mx-auto max-w-xl px-6 py-16">
         <span className="eyebrow">Get the app</span>
-        <h1 className="mt-3 text-4xl">RoughCUT for iPhone</h1>
+        <h1 className="mt-3 text-4xl">RoughNOTES for iPhone</h1>
         {isApple ? (
           <p className="mt-4 text-muted">
             The iPhone app link isn&apos;t live yet. Ask the person who invited you to send it, or log in on the web
@@ -30,7 +30,7 @@ export default async function GetAppPage() {
           </p>
         ) : (
           <p className="mt-4 text-muted">
-            Open this page on your iPhone to install the RoughCUT app. You can also use RoughCUT in any browser — the
+            Open this page on your iPhone to install the RoughNOTES app. You can also use RoughNOTES in any browser — the
             sticker links open a read-only view of the box.
           </p>
         )}

@@ -21,7 +21,7 @@ if (g.ErrorUtils) {
       const e = error as { message?: string; stack?: string } | undefined;
       const message = String(e?.message ?? error);
       const stack = String(e?.stack ?? "").slice(0, 700);
-      Alert.alert(isFatal ? "RoughCUT fatal error" : "RoughCUT error", `${message}\n\n${stack}`);
+      Alert.alert(isFatal ? "RoughNOTES fatal error" : "RoughNOTES error", `${message}\n\n${stack}`);
     } catch {
       // nothing else we can do here
     }

@@ -32,7 +32,7 @@ export default async function IntegrationsPage({ searchParams }: { searchParams:
     <div className="max-w-3xl">
       <h1 className="text-2xl font-bold">Integrations</h1>
       <p className="mt-2 text-muted">
-        Send RoughCUT activity to Asana, Monday, Jira, Slack or anything else that can read a feed, using Zapier, Make
+        Send RoughNOTES activity to Asana, Monday, Jira, Slack or anything else that can read a feed, using Zapier, Make
         or IFTTT.
       </p>
       {sp.error && <p className="mt-3 text-sm text-bad">{sp.error}</p>}

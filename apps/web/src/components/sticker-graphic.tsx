@@ -18,7 +18,7 @@ export async function StickerGraphic({ url, code = "RC-0021" }: { url: string; c
       <div
         className="flex h-[220px] w-[220px] -rotate-3 flex-col items-center justify-center gap-3.5 rounded-2xl border border-line bg-white p-5 shadow-[0_24px_48px_-20px_rgba(20,28,51,0.6)]"
         role="img"
-        aria-label={`RoughCUT sticker ${code} with QR code`}
+        aria-label={`RoughNOTES sticker ${code} with QR code`}
       >
         <div className="h-[132px] w-[132px]" dangerouslySetInnerHTML={{ __html: svg }} />
         <span className="font-display text-xs font-extrabold tracking-[0.08em] text-faint">{code}</span>

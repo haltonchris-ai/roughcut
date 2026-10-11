@@ -12,7 +12,7 @@ export default async function ForgotPasswordPage({
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-16">
-      <Link href="/" aria-label="RoughCUT home" className="mb-8 w-fit">
+      <Link href="/" aria-label="RoughNOTES home" className="mb-8 w-fit">
         <Wordmark />
       </Link>
       <h1 className="text-3xl">Set or reset your password.</h1>
@@ -25,7 +25,7 @@ export default async function ForgotPasswordPage({
       )}
       {sp.sent && (
         <div className="mt-4 rounded-lg border border-good/40 bg-[#E6F3EA] p-3 text-sm text-good">
-          If that email has a RoughCUT account, a link is on its way. Check your inbox and spam folder. The link works
+          If that email has a RoughNOTES account, a link is on its way. Check your inbox and spam folder. The link works
           for about an hour.
         </div>
       )}

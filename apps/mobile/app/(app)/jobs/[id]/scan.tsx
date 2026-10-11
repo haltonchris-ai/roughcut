@@ -138,7 +138,7 @@ export default function ScanScreen() {
     return (
       <View style={[styles.container, styles.centered]}>
         <Text style={[typography.body, { textAlign: "center", marginBottom: spacing.md }]}>
-          RoughCUT needs camera access to scan stickers.
+          RoughNOTES needs camera access to scan stickers.
         </Text>
         <PrimaryButton title="Allow camera" onPress={requestPermission} />
       </View>
@@ -156,10 +156,10 @@ export default function ScanScreen() {
       <View style={styles.statusWrap} pointerEvents="none">
         <View style={[styles.statusPill, { backgroundColor: FRAME_COLORS[phase] }]}>
           <Text style={[styles.statusText, (phase === "locked" || phase === "bad") && { color: "#fff" }]}>
-            {phase === "searching" && "Point the camera at the box's RoughCUT sticker"}
+            {phase === "searching" && "Point the camera at the box's RoughNOTES sticker"}
             {phase === "seen" && "Sticker found. Hold steady…"}
             {phase === "locked" && `✓ Got it${lockedCode ? ` · ${lockedCode}` : ""}`}
-            {phase === "bad" && "Not a RoughCUT sticker"}
+            {phase === "bad" && "Not a RoughNOTES sticker"}
           </Text>
         </View>
       </View>

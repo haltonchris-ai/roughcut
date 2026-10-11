@@ -126,7 +126,7 @@ async function drawLabel(
     .font("Helvetica-Bold")
     .fontSize(12)
     .fillColor("#000000")
-    .text("RoughCUT app", captionX, markY + 12, { width: captionW, lineBreak: false });
+    .text("RoughNOTES app", captionX, markY + 12, { width: captionW, lineBreak: false });
 }
 
 async function qrBuffer(url: string, px: number): Promise<Buffer> {
@@ -141,7 +141,7 @@ async function drawCover(doc: PDFKit.PDFDocument, webOrigin: string, c: CoverInf
   const host = webOrigin.replace(/^https?:\/\//, "");
 
   drawBolt(doc, M, M, 34);
-  doc.font("Helvetica-Bold").fontSize(26).fillColor(INK).text("RoughCUT", M + 46, M + 4, { lineBreak: false });
+  doc.font("Helvetica-Bold").fontSize(26).fillColor(INK).text("RoughNOTES", M + 46, M + 4, { lineBreak: false });
   doc.font("Helvetica-Bold").fontSize(30).fillColor(INK).text("Welcome. Start here.", M, M + 62, { width: W });
   doc
     .font("Helvetica")
@@ -190,7 +190,7 @@ async function drawCover(doc: PDFKit.PDFDocument, webOrigin: string, c: CoverInf
     .fontSize(10)
     .fillColor("#666666")
     .text(
-      "Log in with the email and password for your RoughCUT account. New crew members can be invited from Team on the website.",
+      "Log in with the email and password for your RoughNOTES account. New crew members can be invited from Team on the website.",
       M,
       SHEET_LAYOUT.pageH - M - 14,
       { width: W }

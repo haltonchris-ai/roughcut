@@ -19,7 +19,7 @@ export interface LabelInput {
 }
 
 // Renders one 2x5in label: white background, QR (>= 1in sq), quiet margin,
-// short code under the QR, the word "RoughCUT". No customer/job/spec data —
+// short code under the QR, the word "RoughNOTES". No customer/job/spec data —
 // the QR payload is just {WEB_ORIGIN}/b/{public_code}, per spec.
 export async function generateLabelPng(input: LabelInput, webOrigin: string): Promise<Buffer> {
   const url = buildPublicUrl(webOrigin, input.publicCode);
@@ -37,7 +37,7 @@ export async function generateLabelPng(input: LabelInput, webOrigin: string): Pr
       <rect x="0" y="0" width="${WIDTH}" height="${HEIGHT}" fill="#ffffff" />
       <image x="${qrX}" y="${qrY}" width="${QR_SIZE}" height="${QR_SIZE}" href="${qrDataUrl}" />
       <text x="${WIDTH / 2}" y="${qrY + QR_SIZE + 90}" font-family="DejaVu Sans Bold" font-size="52" font-weight="700" text-anchor="middle" fill="#000000">${esc(input.shortCode)}</text>
-      <text x="${WIDTH / 2}" y="${HEIGHT - 70}" font-family="DejaVu Sans Bold" font-size="40" font-weight="700" text-anchor="middle" fill="#000000" letter-spacing="2">RoughCUT</text>
+      <text x="${WIDTH / 2}" y="${HEIGHT - 70}" font-family="DejaVu Sans Bold" font-size="40" font-weight="700" text-anchor="middle" fill="#000000" letter-spacing="2">RoughNOTES</text>
     </svg>
   `.trim();
 

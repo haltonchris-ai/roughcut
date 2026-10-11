@@ -118,7 +118,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ toke
   events.sort((a, b) => (a.at < b.at ? 1 : -1));
   const items = events.filter((e) => kinds.length === 0 || kinds.includes(e.kind)).slice(0, 100);
   const headers = { "Cache-Control": "private, max-age=60", "X-Robots-Tag": "noindex" };
-  const feedTitle = `${company?.name ?? "RoughCUT"} on RoughCUT`;
+  const feedTitle = `${company?.name ?? "RoughNOTES"} on RoughNOTES`;
 
   if (asJson) {
     return NextResponse.json({ title: feedTitle, items }, { headers });

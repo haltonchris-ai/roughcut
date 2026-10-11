@@ -47,7 +47,7 @@ export default async function BoxPage({ params }: { params: Promise<{ code: stri
       </dl>
 
       <p className="mt-6 text-sm text-muted">
-        This is a read-only view. Open the RoughCUT app to mark this box installed.
+        This is a read-only view. Open the RoughNOTES app to mark this box installed.
       </p>
     </Shell>
   );
@@ -67,7 +67,7 @@ function LoginWall({ code }: { code: string }) {
     <Shell>
       <h1 className="text-2xl font-bold">Log in to view this spec</h1>
       <p className="mt-2 text-muted">
-        This sticker's spec is only visible to a signed-in RoughCUT user on the box's company.
+        This sticker's spec is only visible to a signed-in RoughNOTES user on the box's company.
       </p>
       <Link href={`/login?next=/b/${code}`} className="btn-primary mt-6 inline-block">
         Log in

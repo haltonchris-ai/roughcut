@@ -12,11 +12,11 @@ export default async function LoginPage({
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-16">
-      <Link href="/" aria-label="RoughCUT home" className="mb-8 w-fit">
+      <Link href="/" aria-label="RoughNOTES home" className="mb-8 w-fit">
         <Wordmark />
       </Link>
       <h1 className="text-3xl">Welcome back.</h1>
-      <p className="mt-2 text-muted">Log in to your RoughCUT account.</p>
+      <p className="mt-2 text-muted">Log in to your RoughNOTES account.</p>
 
       {sp.error && (
         <div className="mt-4 rounded-lg border border-bad/40 bg-[#FBE9E7] p-3 text-sm text-bad">{sp.error}</div>

@@ -10,7 +10,7 @@ import { PLAN_LIMITS, PLAN_PRICING } from "@roughcut/shared";
 const steps = [
   {
     title: "Foreman lays out the job",
-    body: "Stick a RoughCUT QR on each box location, scan it, and enter the type, size, height, and any notes the installer needs.",
+    body: "Stick a RoughNOTES QR on each box location, scan it, and enter the type, size, height, and any notes the installer needs.",
   },
   {
     title: "Details sync instantly",
@@ -38,7 +38,7 @@ export default function MarketingPage() {
             <span className="eyebrow">Built for electrical crews</span>
             <h1 className="text-4xl leading-[1.05] sm:text-5xl lg:text-[56px]">Every box, exactly where it belongs.</h1>
             <p className="max-w-xl text-lg leading-relaxed text-muted">
-              RoughCUT turns your foreman&apos;s rough-in layout into a scannable job record — so every installer knows
+              RoughNOTES turns your foreman&apos;s rough-in layout into a scannable job record — so every installer knows
               the type, size, and height of every box without tracing a single line.
             </p>
             <div className="mt-2 flex flex-wrap gap-3.5">
@@ -64,12 +64,12 @@ export default function MarketingPage() {
             <span className="eyebrow">See it in action</span>
             <h2 className="mt-3 text-3xl sm:text-4xl">Scan the sticker. See the box.</h2>
             <p className="mx-auto mt-3 max-w-xl text-muted">
-              From the foreman laying out the job to an installer scanning weeks later, here is how RoughCUT works on
+              From the foreman laying out the job to an installer scanning weeks later, here is how RoughNOTES works on
               site.
             </p>
           </div>
           <div className="mt-8">
-            <VideoEmbed src="/demo/roughcut-demo.mp4" poster="/demo/poster.jpg" title="RoughCUT demo: scan the sticker, see the box details" />
+            <VideoEmbed src="/demo/roughcut-demo.mp4" poster="/demo/poster.jpg" title="RoughNOTES demo: scan the sticker, see the box details" />
           </div>
         </section>
 
@@ -81,7 +81,7 @@ export default function MarketingPage() {
             </p>
             <div className="hidden h-14 w-px bg-white/15 md:block" />
             <p className="max-w-md leading-relaxed text-bg/75">
-              Crews re-trace lines, guess at heights, and call the foreman mid-install. RoughCUT puts the answer on the
+              Crews re-trace lines, guess at heights, and call the foreman mid-install. RoughNOTES puts the answer on the
               box itself.
             </p>
           </div>

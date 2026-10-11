@@ -17,7 +17,7 @@ export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <BrandMark />
-      <span className="font-display text-xl font-extrabold tracking-tight">RoughCUT</span>
+      <span className="font-display text-xl font-extrabold tracking-tight">RoughNOTES</span>
     </span>
   );
 }

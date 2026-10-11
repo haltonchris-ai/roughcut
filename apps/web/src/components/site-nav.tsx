@@ -5,7 +5,7 @@ export function SiteNav() {
   return (
     <header className="border-b border-line bg-bg">
       <div className="mx-auto flex max-w-site items-center justify-between gap-2 px-4 py-3 sm:px-10 sm:py-4">
-        <Link href="/" aria-label="RoughCUT home">
+        <Link href="/" aria-label="RoughNOTES home">
           <Wordmark />
         </Link>
         <nav className="flex items-center gap-1 whitespace-nowrap text-sm font-semibold sm:gap-3">

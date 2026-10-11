@@ -17,7 +17,7 @@ export default async function SignupPage({
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-16">
-      <Link href="/" aria-label="RoughCUT home" className="mb-8 w-fit">
+      <Link href="/" aria-label="RoughNOTES home" className="mb-8 w-fit">
         <Wordmark />
       </Link>
       <h1 className="text-3xl">Create your account.</h1>
